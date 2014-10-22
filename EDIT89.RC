@@ -1,0 +1,131 @@
+/***************************************************************************/
+/*                                                                         */
+/* Modul: EDIT89.RC                                                        */
+/* Autor: Michael Schmidt                                                  */
+/* Datum: 17.12.1994                                                       */
+/*                                                                         */
+/***************************************************************************/
+
+#include <os2.h>
+#include "edit89.h"
+
+ICON    ID_MAIN edit89.ico
+
+MENU    ID_MAIN PRELOAD
+BEGIN
+  SUBMENU "~Partition", ID_PARTITION
+  BEGIN
+    MENUITEM "~Partition auswÑhlen\tCtrl+P",  ID_PARTSEL, MIS_TEXT
+    MENUITEM "~Sektor(en) auswÑhlen\tCtrl+S",  ID_SECSEL, MIS_TEXT
+    MENUITEM "Sektorformat ~umrechnen\tCtrl+U",  ID_CONVERT, MIS_TEXT
+  END
+  SUBMENU "~Interpretation", ID_INTERPRET
+  BEGIN
+    MENUITEM "Darstellung in Hex\tF2",  ID_INTP_HEX,  MIS_TEXT
+    MENUITEM "Darstellung als MBR\tF3",  ID_INTP_MBR,  MIS_TEXT
+    MENUITEM "Darstellung als Boot Sektor\tF4",  ID_INTP_PBR,  MIS_TEXT
+  END
+  SUBMENU "~Hilfe", ID_HELP
+  BEGIN
+    MENUITEM "~öber...",  ID_HLP_ABOUT,  MIS_TEXT
+  END
+END
+
+
+DLGTEMPLATE ID_PARTSEL_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Partition auswÑhlen", ID_PARTSEL_DLG, 81, 39, 207, 80, 
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", ID_PARTSEL_SELECT, 27, 39, 35, 35, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        AUTORADIOBUTTON "log. Partition", ID_PARTSEL_LOGPART, 108, 62, 70, 
+                        10, WS_TABSTOP
+        AUTORADIOBUTTON "phys. Partition", ID_PARTSEL_PHYSPART, 108, 45, 78, 
+                        10, WS_TABSTOP
+        DEFPUSHBUTTON   "~OK", ID_PARTSEL_OK, 20, 10, 40, 14
+        PUSHBUTTON      "~Abbruch", ID_PARTSEL_CANCEL, 80, 10, 44, 14
+    END
+END
+
+DLGTEMPLATE ID_SECSEL_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Sektor(en) auswÑhlen", ID_SECSEL_DLG, 39, 39, 274, 84,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        ENTRYFIELD      "", ID_SECSEL_STARTEDIT, 90, 63, 54, 8, ES_MARGIN
+        ENTRYFIELD      "", ID_SECSEL_COUNTEDIT, 90, 39, 54, 8, ES_MARGIN
+        LTEXT           "Startsektor (RBA)", ID_SECSEL_STARTTXT, 10, 63, 75, 8
+        LTEXT           "Anzahl Sektoren", ID_SECSEL_COUNTTXT, 10, 39, 70, 8
+        LTEXT           "Kategorie-8-Zugriff Åber", ID_SECSEL_ACCTXT, 160,
+                        64, 110, 8
+        AUTORADIOBUTTON "IOCTL", ID_SECSEL_IOCTL, 160, 50, 41, 10,
+                        WS_TABSTOP
+        AUTORADIOBUTTON "Read/Write", ID_SECSEL_RDWR, 160, 38, 63, 10,
+                        WS_TABSTOP
+        DEFPUSHBUTTON   "~OK", ID_SECSEL_OK, 20, 10, 40, 14
+        PUSHBUTTON      "~Abbruch", ID_SECSEL_CANCEL, 80, 10, 44, 14
+    END
+END
+
+DLGTEMPLATE ID_CONV_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Sektorumrechnung", ID_CONV_DLG, 13, 7, 340, 153, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", ID_CONV_SELECT, 22, 99, 38, 35, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Partition auswÑhlen", ID_CONV_PARTTXT, 22, 139, 
+                        100, 8
+        LTEXT           "Kategorie-8-Zugriff Åber", ID_CONV_CAT8TXT, 190, 139,
+                        110, 8
+        ENTRYFIELD      "", ID_CONV_CYLEDIT, 72, 86, 32, 8, ES_MARGIN
+        ENTRYFIELD      "", ID_CONV_HEADEDIT, 72, 66, 32, 8, ES_MARGIN
+        ENTRYFIELD      "", ID_CONV_SECEDIT, 72, 46, 32, 8, ES_MARGIN
+        LTEXT           "Zylinder", ID_CONV_CYLTXT, 31, 86, 37, 8
+        LTEXT           "Kopf", ID_CONV_HEADTXT, 45, 66, 20, 8
+        LTEXT           "Sektor", ID_CONV_SECTXT, 37, 46, 29, 8
+        ENTRYFIELD      "", ID_CONV_SRLEDIT, 253, 86, 55, 8, ES_MARGIN
+        ENTRYFIELD      "", ID_CONV_HIDSECEDIT, 253, 66, 55, 8, ES_MARGIN
+        LTEXT           "Startsektor (RBA)", ID_CONV_SRLTXT, 130, 86, 107, 8
+        LTEXT           "Kat.-8-versteckte Sektoren", ID_CONV_HIDSECTXT, 130,
+                        67, 119, 8
+        RADIOBUTTON     "log. Partition", ID_CONV_LOGPART, 85, 124, 68, 10,
+                        WS_TABSTOP
+        RADIOBUTTON     "phys. Partition", ID_CONV_PHYSPART, 85, 109, 75, 10,
+                        WS_TABSTOP
+        RADIOBUTTON     "Read/Write", ID_CONV_RDWR, 190, 109, 63, 10,
+                        WS_TABSTOP
+        RADIOBUTTON     "IOCTL", ID_CONV_IOCTL, 190, 124, 39, 10, WS_TABSTOP
+        PUSHBUTTON      "~ZKS --> Sektor", ID_CONV_CHS2SEC, 20, 10, 80, 14
+        PUSHBUTTON      "~Sektor --> ZKS", ID_CONV_SEC2CHS, 120, 10, 80, 
+                        14
+        DEFPUSHBUTTON   "~Abbruch", ID_CONV_CANCEL, 220, 10, 44, 14
+    END
+END
+
+
+ACCELTABLE ID_MAIN PRELOAD
+BEGIN
+  "p",   ID_PARTSEL,              CONTROL
+  "P",   ID_PARTSEL,              CONTROL
+  "p",   ID_PARTSEL,              CONTROL, SHIFT
+  "P",   ID_PARTSEL,              CONTROL, SHIFT
+  "s",   ID_SECSEL,               CONTROL
+  "S",   ID_SECSEL,               CONTROL
+  "s",   ID_SECSEL,               CONTROL, SHIFT
+  "S",   ID_SECSEL,               CONTROL, SHIFT
+  "u",   ID_CONVERT,              CONTROL
+  "U",   ID_CONVERT,              CONTROL
+  "u",   ID_CONVERT,              CONTROL, SHIFT
+  "U",   ID_CONVERT,              CONTROL, SHIFT
+  "Å",   ID_HLP_ABOUT,            CONTROL
+  "ö",   ID_HLP_ABOUT,            CONTROL
+  "Å",   ID_HLP_ABOUT,            CONTROL, SHIFT
+  "ö",   ID_HLP_ABOUT,            CONTROL, SHIFT
+  VK_F2, ID_INTP_HEX,             VIRTUALKEY
+  VK_F3, ID_INTP_MBR,             VIRTUALKEY
+  VK_F4, ID_INTP_PBR,             VIRTUALKEY
+END
+
+

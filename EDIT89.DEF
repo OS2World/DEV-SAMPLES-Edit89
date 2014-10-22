@@ -1,0 +1,19 @@
+NAME        EDIT89      WINDOWAPI
+
+IMPORTS
+            RDWR89.LOG1_ReadSectors
+            RDWR89.LOG1_WriteSectors
+            RDWR89.LOG1_RBAToGeometry
+            RDWR89.LOG1_GeometryToRBA
+
+            RDWR89.LOG2_ReadBytes
+            RDWR89.LOG2_WriteBytes
+            RDWR89.LOG2_RBAToGeometry
+            RDWR89.LOG2_GeometryToRBA
+ 
+            RDWR89.ABS_ReadSectors
+            RDWR89.ABS_WriteSectors
+            RDWR89.ABS_RBAToGeometry
+            RDWR89.ABS_GeometryToRBA
+
+

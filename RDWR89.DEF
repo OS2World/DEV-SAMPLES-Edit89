@@ -1,0 +1,29 @@
+;========================================================================
+; RdWr89.DEF - DLL library definition file
+;========================================================================
+LIBRARY     RdWr89  INITINSTANCE  TERMINSTANCE
+
+DESCRIPTION 'Category 8/9 Read/Write Dynamic Link Library'
+
+PROTMODE
+
+DATA        MULTIPLE READWRITE LOADONCALL
+
+CODE        LOADONCALL
+
+EXPORTS     LOG1_ReadSectors
+            LOG1_WriteSectors
+            LOG1_RBAToGeometry
+            LOG1_GeometryToRBA
+
+            LOG2_ReadBytes
+            LOG2_WriteBytes
+            LOG2_RBAToGeometry
+            LOG2_GeometryToRBA
+
+            ABS_ReadSectors
+            ABS_WriteSectors
+            ABS_RBAToGeometry
+            ABS_GeometryToRBA
+
+
